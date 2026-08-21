@@ -1,0 +1,227 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f9;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding : 15px 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) ;
+}
+
+.header-left h1{
+    color: #2563eb;
+
+}
+.header-center{
+    flex:1;
+    display: flex;
+    justify-content: center;
+}
+.header-center input{
+    width: 400px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+}
+.header-right{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.header-right button{
+    border:none;
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.notification-wrapper{
+    position: relative;
+}
+
+.notif-badge{
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    background: #ef4444;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 999px;
+    line-height: 1;
+}
+
+.notif-dropdown{
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 300px;
+    max-height: 320px;
+    overflow-y: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 1001;
+    text-align: left;
+}
+
+.notif-dropdown.show{
+    display: block;
+}
+
+.notif-item{
+    padding: 12px 15px;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.notif-item:last-child{
+    border-bottom: none;
+}
+
+.notif-empty{
+    padding: 20px 15px;
+    font-size: 14px;
+    color: gray;
+    text-align: center;
+}
+
+body.dark-mode .notif-dropdown{
+    background: #2b2b2b;
+    color: white;
+}
+
+body.dark-mode .notif-item{
+    border-color: #444;
+}
+
+.container{
+    display: flex;
+}
+.sidebar{
+    width: 250px;
+    min-height: 100vh;
+    background: #1e293b;
+    color: white;
+    padding: 20px;
+}
+.main-content{
+    flex: 1;
+    padding: 30px;
+}
+
+
+.sidebar h2{
+    text-align: center;
+    margin-bottom: 30px;
+    color: #60a5fa;
+}
+.sidebar ul{
+    list-style: none;
+}
+.sidebar li{
+    margin-bottom: 15px;
+}
+.sidebar a{
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+
+}
+.sidebar a:hover{
+    background: #2563eb;
+}
+.sidebar a.active{
+    background: #2563eb;
+}
+
+
+   /* DARK MODE */
+body.dark-mode {
+    background: #1e1e1e;
+    color: white;
+}
+
+/* Header */
+body.dark-mode header {
+    background: #252525;
+    color: white;
+}
+
+/* Sidebar */
+body.dark-mode .sidebar {
+    background: #252525;
+    color: white;
+}
+
+/* Main sections */
+body.dark-mode .chart-box,
+body.dark-mode .recent-activity,
+body.dark-mode .assets-section {
+    background: #2b2b2b;
+    color: white;
+}
+
+/* Cards */
+body.dark-mode .card {
+    background: #2b2b2b;
+    color: white;
+}
+
+/* Inputs */
+body.dark-mode input,
+body.dark-mode select {
+    background: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+/* Table */
+body.dark-mode table {
+    color: white;
+}
+
+body.dark-mode th {
+    background: #333;
+    color: white;
+}
+
+body.dark-mode td {
+    border-color: #444;
+}
+
+/* Recent activity */
+body.dark-mode .recent-activity li {
+    color: white;
+}
+
+
+   /* Dark Mode - Table Data (applies to Assets AND Subscriptions tables) */
+
+body.dark-mode .data-table td {
+    color: white !important;
+    background-color: #2b2b2b !important;
+}
+
+body.dark-mode .data-table th {
+    color: white !important;
+    background-color: #333 !important;
+}
+
+body.dark-mode .data-table .edit-btn,
+body.dark-mode .data-table .delete-btn {
+    color: white !important;
+}

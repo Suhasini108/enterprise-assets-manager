@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Assets and Subscription Manager</title>
+    <link rel = "stylesheet" href = "dashboard.css">
+    <link rel = "stylesheet" href = "forms.css">
+    <link rel = "stylesheet" href = "style.css">
+
+</head>
+<body>
+    <header >
+        <div class = "header-left">
+            <h1>Enterprise Assets Manager</h1>
+        </div>
+        <div class = "header-center">
+            <input type = "text" id = "globalSearch" placeholder="Search assets...">
+        </div>
+
+        <div class = "header-right" >
+            <div class="notification-wrapper">
+                <button id = "notification-btn">
+                     🔔
+                    <span id="notifBadge" class="notif-badge" style="display:none;">0</span>
+                </button>
+                <div id="notifDropdown" class="notif-dropdown">
+                    <p class="notif-empty">No new notifications</p>
+                </div>
+            </div>
+            <button id = "theme-btn">🌙</button>
+
+            <div class="profile" >
+                <span>Admin</span>
+            </div>
+
+        </div>
+    </header>
+    <div class = "container">
+        <aside class = "sidebar">
+            <h2>Menu</h2>
+
+            <nav>
+                <ul>
+                <li><a href="#" id = "dashboardLink">📊 Dashboard</a></li>
+
+            <li><a href="#" id = "assetsLink">💻 Assets</a></li>
+
+            <li><a href="#" id = "subscriptionsLink">💳 Subscriptions</a></li>
+
+            <li><a href="#" id = "reportLink">📈 Reports</a></li>
+
+            <li><a href="#" id = "settingsLink">⚙ Settings</a></li>
+
+            <li><a href="#" id ="logoutLink">🚪 Logout</a></li>
+            </ul>
+            </nav>
+        </aside>
+        <main class = "main-content">
+
+            <!-- ============================================
+                 Dashboard Section
+            ============================================= -->
+            <section class = "dashboard" id = "dashboardSection">
+
+                <h1>Dashboard</h1>
+
+                <!-- Dashboard Cards -->
+                <div class="dashboard-cards">
+
+                    <div class = "card">
+                        <div class = "card-header">
+                            <h3>Total Assets</h3>
+                            <span class = "card-icon">💻</span>
+                        </div>
+                        <h2 id = "totalAssets">0</h2>
+                        <p class = "card-info">Across all departments</p>
+                    </div>
+
+                    <div class = "card">
+                        <div class = "card-header">
+                            <h3>Assigned Assets</h3>
+                            <span class = "card-icon">👨</span>
+                        </div>
+                        <h2 id ="assignedAssets">0</h2>
+                        <p class = "card-info">Currently in use</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Available Assets</h3>
+                            <span class="card-icon">📦</span>
+                        </div>
+                        <h2 id = "availableAssets">0</h2>
+                        <p class="card-info">Ready to assign</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Repair Assets</h3>
+                            <span class="card-icon">🛠</span>
+                        </div>
+                        <h2 id="repairAssets">0</h2>
+                        <p class="card-info">Under maintenance</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Employees</h3>
+                            <span class="card-icon">👥</span>
+                        </div>
+                        <h2 id="totalEmployees">0</h2>
+                        <p class="card-info">Active employees</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Monthly Cost</h3>
+                            <span class="card-icon">💰</span>
+                        </div>
+                        <h2 id="monthlyCost">$0</h2>
+                        <p class="card-info">Current month's subscriptions</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Yearly Cost</h3>
+                            <span class="card-icon">📈</span>
+                        </div>
+                        <h2 id="yearlyCost">$0</h2>
+                        <p class="card-info">Annual subscription cost</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Expiring Soon</h3>
+                            <span class="card-icon">⏰</span>
+                        </div>
+                        <h2 id="expiringAssets">0</h2>
+                        <p class="card-info">Subscriptions renewing within 30 days</p>
+                    </div>
+
+                </div>
+
+                <!-- Charts -->
+                <section class = "charts">
+                    <div class="chart-box">
+                        <h2>Assets by Department</h2>
+                        <canvas id="departmentChart"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h2>Assets status</h2>
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- Recent Activities -->
+                <section class="recent-activity">
+                    <h2>Recent Activity</h2>
+                    <ul id = "activityList"></ul>
+                </section>
+
+            </section>
+
+            <!-- ============================================
+                 Assets Section
+            ============================================= -->
+            <section class = "assets-section" id = "assetsSection">
+                <h1>Assets Management</h1>
+
+                <div class = "toolbar">
+
+                    <div class = "toolbar-top">
+                        <button id = "addAssetBtn">+ Add Asset</button>
+                        <button id="exportCSVBtn" class="btn-secondary">Export CSV</button>
+                    </div>
+
+                    <div class="search-row">
+                        <input type = "text" id = "searchAsset" placeholder="Search assets...">
+                    </div>
+
+                    <div class = "filter-row">
+                        <select id = "departmentFilter">
+                            <option value = "">All Department</option>
+                            <option>IT</option>
+                            <option>HR</option>
+                            <option>Finance</option>
+                            <option>Marketing</option>
+                        </select>
+
+                        <select id = "statusFilter">
+                            <option value= "">All Status</option>
+                            <option>Assigned</option>
+                            <option>Available</option>
+                            <option>Repair</option>
+                        </select>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="assetsTable" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Asset ID</th>
+                                    <th>Asset Name</th>
+                                    <th>Category</th>
+                                    <th>Employee</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
+                                    <th>Purchase Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id = "tableBody"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================
+                 Subscriptions Section
+            ============================================= -->
+            <section class = "assets-section" id = "subscriptionsSection">
+                <h1>Subscriptions Management</h1>
+
+                <div class = "toolbar">
+
+                    <div class = "toolbar-top">
+                        <button id = "addSubscriptionBtn">+ Add Subscription</button>
+                        <button id="exportSubCSVBtn" class="btn-secondary">Export CSV</button>
+                    </div>
+
+                    <div class="search-row">
+                        <input type = "text" id = "searchSubscription" placeholder="Search subscriptions...">
+                    </div>
+
+                    <div class = "filter-row">
+                        <select id = "subCategoryFilter">
+                            <option value = "">All Categories</option>
+                            <option>Software</option>
+                            <option>Cloud</option>
+                            <option>Service</option>
+                            <option>Tool</option>
+                        </select>
+
+                        <select id = "subStatusFilter">
+                            <option value= "">All Status</option>
+                            <option>Active</option>
+                            <option>Expired</option>
+                        </select>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="subscriptionsTable" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Sub ID</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Department</th>
+                                    <th>Monthly Cost</th>
+                                    <th>Renewal Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id = "subTableBody"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================
+                 Reports Section
+            ============================================= -->
+            <section class = "assets-section" id = "reportSection">
+                <h1>Reports</h1>
+
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Total Assets</h3>
+                            <span class="card-icon">💻</span>
+                        </div>
+                        <h2 id="reportTotalAssets">0</h2>
+                        <p class="card-info">Snapshot as of today</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Total Subscriptions</h3>
+                            <span class="card-icon">💳</span>
+                        </div>
+                        <h2 id="reportTotalSubs">0</h2>
+                        <p class="card-info">Active and expired</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Annual Spend</h3>
+                            <span class="card-icon">📈</span>
+                        </div>
+                        <h2 id="reportYearlyCost">$0</h2>
+                        <p class="card-info">Projected from active subscriptions</p>
+                    </div>
+                </div>
+
+                <div class="toolbar" style="margin-top: 30px;">
+                    <div class="toolbar-top">
+                        <button id="reportExportAssetsBtn" class="btn-secondary">Export Assets CSV</button>
+                        <button id="reportExportSubsBtn" class="btn-secondary">Export Subscriptions CSV</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================
+                 Settings Section
+            ============================================= -->
+            <section class = "assets-section" id = "settingsSection">
+                <h1>Settings</h1>
+
+                <div class="table-container" style="padding: 25px;">
+                    <p style="margin-bottom: 20px; color: gray;">
+                        Manage local application data. This data is stored only in this browser.
+                    </p>
+                    <button id="resetDataBtn" class="delete-btn">Reset All Data</button>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- =====================================================
+                    Add Asset Modal
+    ====================================================== -->
+    <div id="assetModal" class="modal">
+        <div class="modal-content">
+            <h2 id="assetModalTitle">Add New Asset</h2>
+
+            <form id="assetForm">
+                <label for="assetName">Asset Name</label>
+                <input type="text" id="assetName" placeholder="Enter Asset Name" required>
+
+                <label for="category">Category</label>
+                <select id="category">
+                    <option>Laptop</option>
+                    <option>Desktop</option>
+                    <option>Monitor</option>
+                    <option>Printer</option>
+                    <option>Keyboard</option>
+                </select>
+
+                <label for="employee">Employee Name</label>
+                <input type="text" id="employee" placeholder="Employee Name">
+
+                <label for="department">Department</label>
+                <select id="department">
+                    <option>IT</option>
+                    <option>HR</option>
+                    <option>Finance</option>
+                    <option>Marketing</option>
+                </select>
+
+                <label for="purchaseDate">Purchase Date</label>
+                <input type="date" id="purchaseDate">
+
+                <label for="status">Status</label>
+                <select id="status">
+                    <option>Available</option>
+                    <option>Assigned</option>
+                    <option>Repair</option>
+                </select>
+
+                <div class="modal-buttons">
+                    <button type="submit" class="save-btn">Save Asset</button>
+                    <button type="button" id="closeModal" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- =====================================================
+                    Add Subscription Modal
+    ====================================================== -->
+    <div id="subscriptionModal" class="modal">
+        <div class="modal-content">
+            <h2 id="subModalTitle">Add New Subscription</h2>
+
+            <form id="subscriptionForm">
+                <label for="subName">Subscription Name</label>
+                <input type="text" id="subName" placeholder="e.g. Slack, AWS, Adobe CC" required>
+
+                <label for="subCategory">Category</label>
+                <select id="subCategory">
+                    <option>Software</option>
+                    <option>Cloud</option>
+                    <option>Service</option>
+                    <option>Tool</option>
+                </select>
+
+                <label for="subDepartment">Department</label>
+                <select id="subDepartment">
+                    <option>IT</option>
+                    <option>HR</option>
+                    <option>Finance</option>
+                    <option>Marketing</option>
+                </select>
+
+                <label for="subCost">Monthly Cost ($)</label>
+                <input type="number" id="subCost" min="0" step="0.01" placeholder="0.00" required>
+
+                <label for="subRenewalDate">Renewal Date</label>
+                <input type="date" id="subRenewalDate" required>
+
+                <label for="subStatus">Status</label>
+                <select id="subStatus">
+                    <option>Active</option>
+                    <option>Expired</option>
+                </select>
+
+                <div class="modal-buttons">
+                    <button type="submit" class="save-btn">Save Subscription</button>
+                    <button type="button" id="closeSubModal" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="storage.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="activity.js"></script>
+    <script src="subscription.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
